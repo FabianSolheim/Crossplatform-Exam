@@ -9,25 +9,30 @@ type Props = {
     deaths: number,
     title: string
 }
+//TODO: Refactor Text tag to its own component which applies this function, so the code looks more clean.
+//https://www.codegrepper.com/code-examples/javascript/convert+number+to+string+with+commas+javascript
+function numberWithCommas(num: number) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 const StatsDisplay = ({cases, vaccinations, tests, deaths, title}: Props) => {
     return(
         <View style={styles.container}>
             <View>
                 <Text style={styles.label}>{title} covid cases</Text>
-                <Text>{cases}</Text>
+                <Text>{numberWithCommas(cases)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} vaccinations</Text>
-                <Text>{vaccinations}</Text>
+                <Text>{numberWithCommas(vaccinations)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} tests</Text>
-                <Text>{tests}</Text>
+                <Text>{numberWithCommas(tests)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} deaths</Text>
-                <Text>{deaths}</Text>
+                <Text>{numberWithCommas(deaths)}</Text>
             </View>
         </View>
     )

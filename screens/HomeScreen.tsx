@@ -18,7 +18,9 @@ const HomeScreen = () => {
     const [casesTotal, setCasesTotal] = useState(0);
     const [deathsTotal, setDeathsTotal] = useState(0);
 
+
     useEffect(() => {
+
         getDailyStats().then(data => {
             setCasesToday(data.todayCases)
             setDeathsToday(data.todayDeaths)
@@ -29,7 +31,6 @@ const HomeScreen = () => {
         });
 
         getTotalVaccinations().then(data => {
-
             const {daily, total} = data[0]
             setVaccinationsToday(daily)
             setVaccinationsTotal(total)

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 //This gets the daily covid stats
 export type DailyStats = {
     active: number,
@@ -25,11 +27,8 @@ export type DailyStats = {
 
 async function getDailyStats(){
     try {
-        const request = await fetch("https://disease.sh/v3/covid-19/all", {
-            method: "GET"
-        })
-
-        return await request.json();
+        const request = await axios.get<DailyStats>("https://disease.sh/v3/covid-19/all");
+        return request.data
     } catch (e) {
         //NOTE: HANDLE ERRORS PROPERLY
         console.log(e.toString())
@@ -37,15 +36,16 @@ async function getDailyStats(){
 }
 
 type TotalVaccinations = {
-    date: number
+    daily: number,
+    dailyPerMillion: number,
+    date: string,
+    total: number,
+    totalPerHundred: number,
 }
 async function getTotalVaccinations() {
     try {
-        const request = await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true", {
-            method: "GET"
-        })
-
-        return await request.json();
+        const request = await axios.get<TotalVaccinations>("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true");
+        return request.data
     } catch (e) {
         //NOTE: HANDLE ERRORS PROPERLY
         console.log(e.toString())
