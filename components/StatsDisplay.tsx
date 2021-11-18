@@ -1,15 +1,20 @@
 import React from "react";
 import {Text, View, StyleSheet} from "react-native";
 
-const StatsDisplay = () => {
+//NOTE: This component will take the data from the API. Have to be reusable, as we might display many different stats in these.
+type Props = {
+    cases: number
+}
+
+const StatsDisplay = ({cases}: Props) => {
     return(
         <View style={styles.container}>
             <View>
-                <Text style={styles.label}>Total covid cases today</Text>
-                <Text>6000</Text>
+                <Text style={styles.label}>Total covid cases</Text>
+                <Text>{cases}</Text>
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.label}>Total vaccinations worldwide</Text>
+                <Text style={styles.label}>Total vaccinations</Text>
                 <Text>12047839</Text>
             </View>
         </View>
@@ -38,6 +43,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: "bold",
+        fontSize: 16,
     }
 })
 

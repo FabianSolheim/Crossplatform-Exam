@@ -1,28 +1,45 @@
-import React from 'react';
-import {SafeAreaView, Text, StyleSheet} from "react-native";
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, Text, StyleSheet, ScrollView} from "react-native";
+
+//API
+import {getDailyStats} from "../api/diseaseApi";
 
 //Components
+import Title from "../components/Title";
 import StatsDisplay from "../components/StatsDisplay";
 
 const HomeScreen = () => {
+    const [casesToday, setCasesToday] = useState(0)
+    const [casesTotal, setCasesTotal] = useState(0)
+
+    useEffect(() => {
+        getDailyStats().then(data => {
+            console.log(data)
+            setCasesToday(data.todayCases)
+            setCasesTotal(data.cases)
+        })
+    }, [])
     return(
         <SafeAreaView>
-            <Text style={styles.headingText}>Daily Global Stats</Text>
-            <StatsDisplay />
+            <ScrollView>
+                <Title title={"Daily Global Stats"} />
+                <StatsDisplay cases={casesToday} />
+
+                <Title title={"Weekly Global Stats"} />
+                <StatsDisplay cases={0} />
+
+                <Title title={"Monthly Global Stats"} />
+                <StatsDisplay cases={0} />
+
+                <Title title={"Total Global Stats"} />
+                <StatsDisplay cases={casesTotal} />
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {},
-    headingText: {
-        marginLeft: 20,
-        marginTop: 20,
-        marginRight: 20,
-        textAlign: "left",
-        fontSize: 20,
-        fontWeight: "bold"
-    }
 })
 
 export default HomeScreen;

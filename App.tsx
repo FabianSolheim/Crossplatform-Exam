@@ -7,7 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeNavigation from "./navigation/HomeNavigation";
 import SearchNavigation from "./navigation/SearchNavigation";
 
-
 const App = () => {
     const Tab = createBottomTabNavigator();
     return (
