@@ -34,9 +34,25 @@ async function getDailyStats(){
         //NOTE: HANDLE ERRORS PROPERLY
         console.log(e.toString())
     }
+}
 
+type TotalVaccinations = {
+    date: number
+}
+async function getTotalVaccinations() {
+    try {
+        const request = await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true", {
+            method: "GET"
+        })
+
+        return await request.json();
+    } catch (e) {
+        //NOTE: HANDLE ERRORS PROPERLY
+        console.log(e.toString())
+    }
 }
 
 export {
-    getDailyStats
+    getDailyStats,
+    getTotalVaccinations
 }

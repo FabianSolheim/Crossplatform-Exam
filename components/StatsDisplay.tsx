@@ -3,19 +3,31 @@ import {Text, View, StyleSheet} from "react-native";
 
 //NOTE: This component will take the data from the API. Have to be reusable, as we might display many different stats in these.
 type Props = {
-    cases: number
+    cases: number,
+    vaccinations: number,
+    tests: number,
+    deaths: number,
+    title: string
 }
 
-const StatsDisplay = ({cases}: Props) => {
+const StatsDisplay = ({cases, vaccinations, tests, deaths, title}: Props) => {
     return(
         <View style={styles.container}>
             <View>
-                <Text style={styles.label}>Total covid cases</Text>
+                <Text style={styles.label}>{title} covid cases</Text>
                 <Text>{cases}</Text>
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.label}>Total vaccinations</Text>
-                <Text>12047839</Text>
+                <Text style={styles.label}>{title} vaccinations</Text>
+                <Text>{vaccinations}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+                <Text style={styles.label}>{title} tests</Text>
+                <Text>{tests}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+                <Text style={styles.label}>{title} deaths</Text>
+                <Text>{deaths}</Text>
             </View>
         </View>
     )
