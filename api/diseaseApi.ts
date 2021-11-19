@@ -30,11 +30,12 @@ async function getDailyStats(){
         const request = await axios.get<DailyStats>("https://disease.sh/v3/covid-19/all");
         return request.data
     } catch (e) {
-        //NOTE: HANDLE ERRORS PROPERLY
+        //TODO: HANDLE ERRORS PROPERLY
         console.log(e.toString())
     }
 }
 
+//This gets the vacination stats
 type TotalVaccinations = {
     daily: number,
     dailyPerMillion: number,
@@ -47,12 +48,23 @@ async function getTotalVaccinations() {
         const request = await axios.get<TotalVaccinations>("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true");
         return request.data
     } catch (e) {
-        //NOTE: HANDLE ERRORS PROPERLY
+        //TODO: HANDLE ERRORS PROPERLY
+        console.log(e.toString())
+    }
+}
+//TODO: Create type for this request
+async function getDataSeriesAllTime(){
+    try {
+        const request = await axios.get("https://disease.sh/v3/covid-19/historical/all?lastdays=30");
+        return request.data
+    } catch (e) {
+        //TODO: HANDLE ERRORS PROPERLY
         console.log(e.toString())
     }
 }
 
 export {
     getDailyStats,
-    getTotalVaccinations
+    getTotalVaccinations,
+    getDataSeriesAllTime
 }

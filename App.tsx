@@ -12,7 +12,7 @@ const App = () => {
     return (
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeNavigation} options={{
+          <Tab.Screen name="Overview" component={HomeNavigation} options={{
               tabBarIcon: ({size, color}) => (
                   <Ionicons name="home-sharp" size={size} color={color} />
               )
