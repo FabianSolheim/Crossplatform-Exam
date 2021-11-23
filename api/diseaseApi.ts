@@ -63,8 +63,20 @@ async function getDataSeriesAllTime(){
     }
 }
 
+//TODO: Create type for this request
+async function getAllCountries() {
+    try {
+        const request = await axios.get("https://disease.sh/v3/covid-19/countries");
+        return request.data;
+    } catch (e) {
+        //TODO: Handle errors properlyyyy
+        console.log(e.toString());
+    }
+}
+
 export {
     getDailyStats,
     getTotalVaccinations,
-    getDataSeriesAllTime
+    getDataSeriesAllTime,
+    getAllCountries
 }

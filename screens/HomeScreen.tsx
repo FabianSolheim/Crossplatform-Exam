@@ -73,7 +73,7 @@ const HomeScreen = () => {
                 <Title title={"Daily Global Stats"} />
                 <StatsDisplay cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
 
-                <Title title={"Total Global Development"} />
+                <Title title={"Total Cases Last 30 Days"} />
                 <ChartDisplay cases={chartCases} />
             </ScrollView>
         </SafeAreaView>
