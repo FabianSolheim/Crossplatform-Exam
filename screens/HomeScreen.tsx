@@ -51,7 +51,8 @@ const HomeScreen = () => {
             setVaccinationsTotal(total)
         });
 
-        getDataSeriesCountry().then(data => {
+        //TODO: ADD LOCATION DATA HERE
+        getDataSeriesCountry("norway").then(data => {
             setCountryChartCases([]); //reset state array
             setCountryChartDates([]);
             const {cases} = data.timeline;
@@ -78,8 +79,10 @@ const HomeScreen = () => {
                 <Title title={"Daily Global Stats"} />
                 <StatsDisplay cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
 
-                <Title title={"Cases Last 10 Days, Norway"} />
-                <ChartDisplay cases={countryChartCases} dates={countryChartDates} />
+                    <Title title={"Cases Last 10 Days, Norway"} />
+                { /*
+                    <ChartDisplay cases={countryChartCases} dates={countryChartDates} />
+               */ }
             </ScrollView>
         </SafeAreaView>
     );

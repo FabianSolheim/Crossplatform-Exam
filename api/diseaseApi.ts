@@ -22,7 +22,10 @@ export type DailyStats = {
     todayCases: number,
     todayDeaths: number
     todayRecovered: number,
-    updated: number
+    updated: number,
+    //TODO: These should prooobably be its own ting
+    country: string,
+    flag: string
 }
 
 async function getDailyStats(){
@@ -65,9 +68,10 @@ async function getDataSeriesAllTime(){
     }
 }
 
-async function getDataSeriesCountry() {
+async function getDataSeriesCountry(country: string) {
     try {
-        const request = await axios.get("https://disease.sh/v3/covid-19/historical/nor?lastdays=10");
+        const url = `https://disease.sh/v3/covid-19/historical/${country.toLowerCase()}?lastdays=1`
+        const request = await axios.get(url);
         return request.data;
     } catch (e) {
         //TODO: HANDLE ERROR
@@ -85,10 +89,21 @@ async function getAllCountries() {
     }
 }
 
+async function getSpecificCountry(country: string) {
+    try {
+        const url = `https://disease.sh/v3/covid-19/countries/${country.toLowerCase()}?strict=true`
+        const request = await axios.get<DailyStats>(url);
+        return request.data;
+    } catch (e) {
+        //TODO: HANDLE ERROR
+    }
+}
+
 export {
     getDailyStats,
     getTotalVaccinations,
     getDataSeriesAllTime,
     getDataSeriesCountry,
-    getAllCountries
+    getAllCountries,
+    getSpecificCountry
 }

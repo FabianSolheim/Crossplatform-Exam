@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+
 import {
     Button,
-    Dimensions,
     FlatList,
     Image,
     SafeAreaView,
@@ -12,12 +14,19 @@ import {
     View
 } from "react-native";
 import {getAllCountries} from "../api/diseaseApi";
+import {RootStackParamList} from "../navigation/SearchNavigation";
+
+type ProfileScreenNavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    'SearchScreen'>;
+
 
 type Props = {
-    item: ItemProps
+    item: ItemProps;
+    navigation: ProfileScreenNavigationProp
 }
 
-type ItemProps = {
+export type ItemProps = {
     country: string;
     name: string;
     cases: number;
@@ -27,16 +36,19 @@ type ItemProps = {
     population: string;
 }
 
-type CountryInfo = {
+export type CountryInfo = {
     _id: number
     flag: string;
     iso2: string;
     iso3: string
 }
 
-const RenderItem = ({item}: Props) => {
+const RenderItem: React.FC<Props> = ({item}) => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
     return(
-        <TouchableOpacity>
+        // @ts-ignore
+        <TouchableOpacity onPress={() => navigation.navigate("SearchResultScreen", {country: item.countryInfo.iso3})}>
             <View style={styles.renderContainer}>
                 <View style={{flex: 1}}>
                     <Text style={styles.renderContainerTitle}>{item.country}</Text>
@@ -48,7 +60,7 @@ const RenderItem = ({item}: Props) => {
     );
 };
 
-const SearchScreen = () => {
+const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [allCountries, setAllCountries] = useState([]);
     const [text, setText] = useState("");
 
