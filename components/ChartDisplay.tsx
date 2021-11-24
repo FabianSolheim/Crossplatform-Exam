@@ -1,34 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, Dimensions} from "react-native";
 import {
     LineChart
 } from "react-native-chart-kit";
 
 type Props = {
-    cases: object
+    cases: any;
+    dates: string[];
 }
 
-const ChartDisplay = ({cases}: Props) => {
-    console.log("cases from chartdisplay", cases)
+
+const ChartDisplay = ({cases, dates}: Props) => {
+    const [currentCases, setCurrentCases] = useState<number[]>([]);
+
+    console.log(cases.length);
+    console.log(dates.length);
     return(
         <View >
             <LineChart
                 data={{
-                    labels: ["0", "15", "30"],
+                    labels: dates,
                     datasets: [
                         {
-                            data: [
-                                Math.random() * 10000,
-                                Math.random() * 10000,
-                                Math.random() * 10000,
-                                Math.random() * 10000,
-                                Math.random() * 1000,
-                                Math.random() * 100
-                            ]
+                            data: cases
                         }
                     ]
                 }}
-                width={Dimensions.get("window").width} // from react-native
+                width={Dimensions.get("window").width - 20} // from react-native
                 height={220}
                 yAxisLabel=""
                 yAxisSuffix=""
@@ -41,21 +39,20 @@ const ChartDisplay = ({cases}: Props) => {
                     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                     style: {
-                        borderRadius: 16
+                        borderRadius: 16,
                     },
+
                     propsForDots: {
-                        r: "6",
-                        strokeWidth: "2",
+                        r: "1",
+                        strokeWidth: "1",
                         stroke: "#ffa726"
                     }
                 }}
                 bezier
                 style={{
-                    borderRadius: 16,
-                    marginTop: 20,
-                    marginLeft: 15,
-                    marginRight: 30,
-                    marginVertical: 8,
+                    marginTop: 15,
+                    alignSelf: "center",
+                    borderRadius: 15,
                 }}
             />
         </View>

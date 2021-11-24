@@ -43,6 +43,7 @@ type TotalVaccinations = {
     total: number,
     totalPerHundred: number,
 }
+
 async function getTotalVaccinations() {
     try {
         const request = await axios.get<TotalVaccinations>("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true");
@@ -52,14 +53,24 @@ async function getTotalVaccinations() {
         console.log(e.toString())
     }
 }
+
 //TODO: Create type for this request
 async function getDataSeriesAllTime(){
     try {
-        const request = await axios.get("https://disease.sh/v3/covid-19/historical/all?lastdays=30");
+        const request = await axios.get("https://disease.sh/v3/covid-19/historical/all?lastdays=5");
         return request.data
     } catch (e) {
         //TODO: HANDLE ERRORS PROPERLY
         console.log(e.toString())
+    }
+}
+
+async function getDataSeriesCountry() {
+    try {
+        const request = await axios.get("https://disease.sh/v3/covid-19/historical/nor?lastdays=10");
+        return request.data;
+    } catch (e) {
+        //TODO: HANDLE ERROR
     }
 }
 
@@ -78,5 +89,6 @@ export {
     getDailyStats,
     getTotalVaccinations,
     getDataSeriesAllTime,
+    getDataSeriesCountry,
     getAllCountries
 }

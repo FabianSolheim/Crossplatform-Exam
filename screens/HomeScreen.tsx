@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 
 //API
-import {getDailyStats, getDataSeriesAllTime, getTotalVaccinations} from "../api/diseaseApi";
+import {getDailyStats, getDataSeriesAllTime, getDataSeriesCountry, getTotalVaccinations} from "../api/diseaseApi";
 
 //Components
 import Title from "../components/Title";
@@ -22,23 +22,22 @@ const HomeScreen = () => {
     const [deathsTotal, setDeathsTotal] = useState(0);
 
     //CHART
-    const [chartCases, setChartCases] = useState({});
+    const [chartCases, setChartCases] = useState<number[]>([]);
 
+    //COUNTRY CHART
+    const [countryChartCases, setCountryChartCases] = useState<number[]>([]);
+    const [countryChartDates, setCountryChartDates] = useState<string[]>([]);
+
+    //TODO: Move this to a utils folder
+    const formatDate = (date: string) => {
+        let newString = "";
+        const dateArray = date.split("/");
+        newString += `${dateArray[1]}`
+
+        return newString;
+    };
 
     useEffect(() => {
-        /* This might be a clean way to run a async function inside an useEffect
-        (async () => {
-            let data = await getDailyStats()
-
-            setCasesToday(data.todayCases)
-            setDeathsToday(data.todayDeaths)
-
-            setCasesTotal(data.cases)
-            setTestsTotal(data.tests)
-            setDeathsTotal(data.deaths)
-        })()
-        */
-
         getDailyStats().then(data => {
 
             setCasesToday(data.todayCases)
@@ -56,10 +55,35 @@ const HomeScreen = () => {
         });
 
         getDataSeriesAllTime().then(data => {
-            console.log(data.cases)
-            setChartCases(data.cases)
+            const {cases} = data;
+            //Empty if we have something in state already
+            setChartCases([]);
+
+            //TODO: ADD TYPE
+            let casesArray: number[] = [];
+            for (const [key, value] of Object.entries(cases)) {
+                if (typeof value === "number") {
+                    casesArray.push(value);
+                }
+            }
+            setChartCases(casesArray);
+            casesArray = []; //reset the array after state has been set
         });
-    }, [])
+
+        getDataSeriesCountry().then(data => {
+            setCountryChartCases([]); //reset state array
+            setCountryChartDates([]);
+            const {cases} = data.timeline;
+
+            for (const [key, value] of Object.entries(cases)) {
+                console.log(`${key}: ${value}`);
+                if(typeof value === "number"){
+                    setCountryChartCases(prevState => [...prevState, value]);
+                    setCountryChartDates(prevState => [...prevState, formatDate(key.toString())])
+                }
+            }
+        })
+    }, []);
 
     return(
         <SafeAreaView>
@@ -73,8 +97,8 @@ const HomeScreen = () => {
                 <Title title={"Daily Global Stats"} />
                 <StatsDisplay cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
 
-                <Title title={"Total Cases Last 30 Days"} />
-                <ChartDisplay cases={chartCases} />
+                <Title title={"Cases Last 10 Days, Norway"} />
+                <ChartDisplay cases={countryChartCases} dates={countryChartDates} />
             </ScrollView>
         </SafeAreaView>
     );
