@@ -78,7 +78,7 @@ async function getDataSeriesCountry() {
 async function getAllCountries() {
     try {
         const request = await axios.get("https://disease.sh/v3/covid-19/countries");
-        return request.data;
+        return await request.data;
     } catch (e) {
         //TODO: Handle errors properlyyyy
         console.log(e.toString());

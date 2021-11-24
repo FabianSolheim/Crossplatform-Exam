@@ -21,9 +21,6 @@ const HomeScreen = () => {
     const [casesTotal, setCasesTotal] = useState(0);
     const [deathsTotal, setDeathsTotal] = useState(0);
 
-    //CHART
-    const [chartCases, setChartCases] = useState<number[]>([]);
-
     //COUNTRY CHART
     const [countryChartCases, setCountryChartCases] = useState<number[]>([]);
     const [countryChartDates, setCountryChartDates] = useState<string[]>([]);
@@ -52,22 +49,6 @@ const HomeScreen = () => {
             const {daily, total} = data[0]
             setVaccinationsToday(daily)
             setVaccinationsTotal(total)
-        });
-
-        getDataSeriesAllTime().then(data => {
-            const {cases} = data;
-            //Empty if we have something in state already
-            setChartCases([]);
-
-            //TODO: ADD TYPE
-            let casesArray: number[] = [];
-            for (const [key, value] of Object.entries(cases)) {
-                if (typeof value === "number") {
-                    casesArray.push(value);
-                }
-            }
-            setChartCases(casesArray);
-            casesArray = []; //reset the array after state has been set
         });
 
         getDataSeriesCountry().then(data => {
