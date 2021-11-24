@@ -3,10 +3,11 @@ import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity} from "react-nati
 
 //API
 import {getDailyStats, getDataSeriesAllTime, getDataSeriesCountry, getTotalVaccinations} from "../api/diseaseApi";
+import {formatDate} from "../utils/utils";
 
 //Components
 import Title from "../components/Title";
-import StatsDisplay from "../components/StatsDisplay";
+import StatsView from "../components/StatsView";
 import ChartDisplay from "../components/ChartDisplay";
 
 const HomeScreen = () => {
@@ -24,15 +25,6 @@ const HomeScreen = () => {
     //COUNTRY CHART
     const [countryChartCases, setCountryChartCases] = useState<number[]>([]);
     const [countryChartDates, setCountryChartDates] = useState<string[]>([]);
-
-    //TODO: Move this to a utils folder
-    const formatDate = (date: string) => {
-        let newString = "";
-        const dateArray = date.split("/");
-        newString += `${dateArray[1]}`
-
-        return newString;
-    };
 
     useEffect(() => {
         getDailyStats().then(data => {
@@ -72,12 +64,11 @@ const HomeScreen = () => {
             <ScrollView>
                 {/* These should maybe be its own component? */}
                 <Title title={"Total Global Stats"} />
-                <TouchableOpacity onPress={() => console.log("Pressed")}>
-                    <StatsDisplay cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal} title={"Total"} />
-                </TouchableOpacity>
+                <StatsView cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal} title={"Total"} />
+
 
                 <Title title={"Daily Global Stats"} />
-                <StatsDisplay cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
+                <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
 
                     <Title title={"Cases Last 10 Days, Norway"} />
                 { /*

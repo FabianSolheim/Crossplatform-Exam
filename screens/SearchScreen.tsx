@@ -3,7 +3,7 @@ import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 import {
-    Button,
+    Button, Dimensions,
     FlatList,
     Image,
     SafeAreaView,
@@ -15,11 +15,13 @@ import {
 } from "react-native";
 import {getAllCountries} from "../api/diseaseApi";
 import {RootStackParamList} from "../navigation/SearchNavigation";
+import { Fontisto } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import OverlayView from "../components/OverlayView";
 
 type ProfileScreenNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
     'SearchScreen'>;
-
 
 type Props = {
     item: ItemProps;
@@ -60,9 +62,11 @@ const RenderItem: React.FC<Props> = ({item}) => {
     );
 };
 
+//TODO: Create a filtering option for the list
 const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [allCountries, setAllCountries] = useState([]);
     const [text, setText] = useState("");
+    const [toggleOverlay, setToggleOverlay] = useState<boolean>(false);
 
     useEffect(() => {
         getAllCountries().then(data => {
@@ -81,9 +85,12 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
                     onChangeText={setText}
                     placeholder={"Enter country name"}
                 />
-                {/* TODO: Create Custom Button(?)*/}
-                <Button title={"Search"} onPress={() => console.log(text)} />
+                {/* TODO: THIS SHOULD BE A COMPONENT. <ButtonWithIcon /> or sum*/}
+                <TouchableOpacity style={styles.button} onPress={() => setToggleOverlay(!toggleOverlay)}>
+                    <Fontisto name="filter" size={24} color="black" />
+                </TouchableOpacity>
             </View>
+            {toggleOverlay && <OverlayView  setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>}
             <FlatList
                 data={allCountries}
                 renderItem={({item}) => {
@@ -135,7 +142,16 @@ const styles = StyleSheet.create({
     },
     button: {
         alignSelf: "center",
+        flex: 0.15
+    },
+    overlayContainer: {
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height / 5,
+        backgroundColor: "white",
+        zIndex: 99,
+        position: "absolute"
     }
 })
+
 
 export default SearchScreen;

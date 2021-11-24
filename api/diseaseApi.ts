@@ -38,7 +38,7 @@ async function getDailyStats(){
     }
 }
 
-//This gets the vacination stats
+
 type TotalVaccinations = {
     daily: number,
     dailyPerMillion: number,

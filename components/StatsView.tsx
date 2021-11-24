@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, View, StyleSheet} from "react-native";
+import {numberWithCommas} from "../utils/utils";
 
-//NOTE: This component will take the data from the API. Have to be reusable, as we might display many different stats in these.
 type Props = {
     cases: number,
     vaccinations: number,
@@ -9,13 +9,8 @@ type Props = {
     deaths: number,
     title: string
 }
-//TODO: Refactor Text tag to its own component which applies this function, so the code looks more clean.
-//https://www.codegrepper.com/code-examples/javascript/convert+number+to+string+with+commas+javascript
-function numberWithCommas(num: number) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
-const StatsDisplay = ({cases, vaccinations, tests, deaths, title}: Props) => {
+const StatsView = ({cases, vaccinations, tests, deaths, title}: Props) => {
     return(
         <View style={styles.container}>
             <View>
@@ -64,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default StatsDisplay;
+export default StatsView;
