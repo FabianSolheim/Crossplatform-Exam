@@ -77,7 +77,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         });
     }, []);
 
-    return(
+    return (
         <SafeAreaView>
             <View style={styles.searchBar}>
                 <TextInput
