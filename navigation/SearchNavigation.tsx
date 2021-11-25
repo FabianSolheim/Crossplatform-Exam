@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SearchScreen from "../screens/SearchScreen";
 import SearchResultScreen from "../screens/SearchResultScreen/SearchResultScreen";
 
-
+//TODO: Fix this?
 export type RootStackParamList = {
     SearchScreen: undefined;
     SearchResultScreen: undefined;

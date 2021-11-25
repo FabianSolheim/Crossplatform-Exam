@@ -10,7 +10,6 @@ type Props = {
 const ListRenderItem = ({item, navigation}: Props) => {
     return (
         <View>
-            {/* @ts-ignore */}
             <TouchableOpacity
                 onPress={() => navigation.navigate("SearchResultScreen", {country: item.countryInfo.iso3})}>
                 <View style={styles.renderContainer}>

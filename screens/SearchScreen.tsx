@@ -39,11 +39,11 @@ export type CountryInfo = {
     iso3: string
 }
 
-//TODO: Create a filtering option for the list
 const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [allCountries, setAllCountries] = useState([]);
     const [text, setText] = useState("");
     const [toggleOverlay, setToggleOverlay] = useState<boolean>(false);
+    const [flatListData, setFlatListData] = useState([]); //Having a unique one so we dont mutate the original array
 
     useEffect(() => {
         getAllCountries().then(data => {
@@ -51,21 +51,17 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
 
             const correctData = data.filter((item: ItemProps) => item.countryInfo._id !== null); //null checking the data, as some countries dont have the id property
             setAllCountries(correctData);
+            setFlatListData(correctData);
         });
     }, []);
 
     //This only runs when the user inputs text
     useEffect(() => {
         if(text.length === 0) {
-            getAllCountries().then(data => {
-                setAllCountries([]);
-
-                const correctData = data.filter((item: ItemProps) => item.countryInfo._id !== null); //null checking the data, as some countries dont have the id property
-                setAllCountries(correctData);
-            });
+            setFlatListData(allCountries);
         } else {
             const newArray = allCountries.filter((item: ItemProps) => item.country.toLowerCase().includes(text.toLowerCase()));
-            setAllCountries(newArray);
+            setFlatListData(newArray);
         }
     }, [text])
 
@@ -75,7 +71,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
             {toggleOverlay && <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>}
             <FlatList
                 //@ts-ignore
-                data={allCountries}
+                data={flatListData}
                 renderItem={({item}) => {
                     return <ListRenderItem item={item} navigation={navigation}/>
                 }}

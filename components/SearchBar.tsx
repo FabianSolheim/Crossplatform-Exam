@@ -16,7 +16,7 @@ const SearchBar: React.FC<Props> = ({setText, toggleOverlay, setToggleOverlay}) 
                 onChangeText={setText}
                 placeholder={"Enter country name"}
             />
-            <ButtonWithIcon toggleOverlay={toggleOverlay} setToggleOverlay={setToggleOverlay}/>
+            <ButtonWithIcon icon={"align-justify"} toggleOverlay={toggleOverlay} setToggleOverlay={setToggleOverlay}/>
         </View>
     );
 }
