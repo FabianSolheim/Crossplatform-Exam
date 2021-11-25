@@ -7,6 +7,7 @@ type Props = {
     navigation: ProfileScreenNavigationProp
 }
 
+//TODO: ADD COUNTRYNAME TO HEADER
 const ListRenderItem = ({item, navigation}: Props) => {
     return (
         <View>
@@ -29,26 +30,17 @@ const styles = StyleSheet.create({
     renderContainer: {
         flex: 1,
         flexDirection: "row",
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
         padding: 10,
-        borderRadius: 5,
         shadowColor: "#000",
         backgroundColor: "#FAF9F6",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     renderContainerTitle: {
-        fontSize: 20
+        fontSize: 20,
     },
     renderContainerText: {
-        fontSize: 16
+        fontSize: 16,
     },
 });
 

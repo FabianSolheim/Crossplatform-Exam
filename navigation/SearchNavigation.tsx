@@ -17,7 +17,7 @@ const SearchNavigation = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{
-                headerTitle: "Search"
+                headerTitle: "Countries"
             }}/>
             <Stack.Screen name="SearchResultScreen" component={SearchResultScreen} options={{
                 headerTitle: "Country"

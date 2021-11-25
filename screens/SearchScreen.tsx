@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 import {
     FlatList,
-    SafeAreaView,
+    SafeAreaView, View,
 } from "react-native";
 import {getAllCountries} from "../api/diseaseApi";
 import {RootStackParamList} from "../navigation/SearchNavigation";
@@ -12,6 +12,7 @@ import {RootStackParamList} from "../navigation/SearchNavigation";
 import OverlayView from "../components/OverlayView";
 import SearchBar from "../components/SearchBar";
 import ListRenderItem from "../components/ListRenderItem";
+import ItemSeparatorComponent from "../components/ItemSeparatorComponent";
 
 //TODO: REFACTOR PROPS
 export type ProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList,
@@ -70,15 +71,18 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
             <SearchBar setText={setText} setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>
             {toggleOverlay && <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>}
             <FlatList
-                //@ts-ignore
+                style={{marginTop: 5}}
                 data={flatListData}
                 renderItem={({item}) => {
                     return <ListRenderItem item={item} navigation={navigation}/>
                 }}
                 keyExtractor={(item: ItemProps) => item.countryInfo._id.toString()}
+                ItemSeparatorComponent={ItemSeparatorComponent}
             />
         </SafeAreaView>
     );
 };
+
+
 
 export default SearchScreen;

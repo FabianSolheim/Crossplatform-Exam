@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     searchBar: {
         flexDirection: "row",
         alignItems: "center",
+        marginLeft: 5
     },
     input: {
         flex: 1,
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         padding: 10,
+        borderColor: "#111111"
     },
 });
 

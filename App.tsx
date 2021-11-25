@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 //Navigators
 import HomeNavigation from "./navigation/HomeNavigation";
@@ -14,12 +14,12 @@ const App = () => {
         <Tab.Navigator>
           <Tab.Screen name="Overview" component={HomeNavigation} options={{
               tabBarIcon: ({size, color}) => (
-                  <Ionicons name="home-sharp" size={size} color={color} />
+                  <Fontisto name="home" size={size} color={color} />
               )
           }}/>
-            <Tab.Screen name="Search" component={SearchNavigation} options={{
+            <Tab.Screen name="Countries" component={SearchNavigation} options={{
                 tabBarIcon: ({size, color}) => (
-                    <Ionicons name="search" size={size} color={color} />
+                    <Fontisto name="world-o" size={size} color={color} />
                 ),
                 headerShown: false
             }}/>
