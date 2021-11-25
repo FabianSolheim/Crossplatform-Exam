@@ -46,6 +46,10 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [toggleOverlay, setToggleOverlay] = useState<boolean>(false);
     const [flatListData, setFlatListData] = useState([]); //Having a unique one so we dont mutate the original array
 
+    //FILTERING
+    const [sortByLeastCases, setSortByLeastCases] = useState<boolean>(false);
+    const [sortByMostCases, setSortByMostCases] = useState<boolean>(false);
+
     useEffect(() => {
         getAllCountries().then(data => {
             setAllCountries([]);
@@ -58,7 +62,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
 
     //This only runs when the user inputs text
     useEffect(() => {
-        if(text.length === 0) {
+        if (text.length === 0) {
             setFlatListData(allCountries);
         } else {
             const newArray = allCountries.filter((item: ItemProps) => item.country.toLowerCase().includes(text.toLowerCase()));
@@ -66,10 +70,26 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         }
     }, [text])
 
+    //Sort by least cases
+    useEffect(() => {
+        if(sortByLeastCases) {
+            const newArray = allCountries.sort((a, b) => a.cases - b.cases)
+            setFlatListData(newArray);
+        }
+    }, [sortByLeastCases])
+
+    //Sort by most cases
+    useEffect(() => {
+        if(sortByMostCases) {
+            const newArray = allCountries.sort((a, b) => b.cases - a.cases)
+            setFlatListData(newArray);
+        }
+    }, [sortByMostCases])
     return (
         <SafeAreaView>
             <SearchBar setText={setText} setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>
-            {toggleOverlay && <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>}
+            {toggleOverlay && <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}
+                                           setSortByLeastCases={setSortByLeastCases} setSortByMostCases={setSortByMostCases}  sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}/>}
             <FlatList
                 style={{marginTop: 5}}
                 data={flatListData}
@@ -82,7 +102,6 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         </SafeAreaView>
     );
 };
-
 
 
 export default SearchScreen;

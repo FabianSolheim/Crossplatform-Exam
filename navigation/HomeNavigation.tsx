@@ -13,7 +13,7 @@ const HomeNavigation = () => {
                 headerShown: false
             }} />
         </Stack.Navigator>
-    )
+    );
 }
 
 export default HomeNavigation;
