@@ -10,7 +10,7 @@ import Title from "../components/Title";
 import StatsView from "../components/StatsView";
 import ChartDisplay from "../components/ChartDisplay";
 
-const HomeScreen = () => {
+const HomeScreen: React.FC = () => {
     //DAILY
     const [casesToday, setCasesToday] = useState(0);
     const [vaccinationsToday, setVaccinationsToday] = useState(0);

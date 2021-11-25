@@ -11,8 +11,7 @@ const App = () => {
     const Tab = createBottomTabNavigator();
     return (
       <NavigationContainer>
-          {/*@ts-ignore*/ }
-        <Tab.Navigator backBehavior={"history"} >
+        <Tab.Navigator>
           <Tab.Screen name="Overview" component={HomeNavigation} options={{
               tabBarIcon: ({size, color}) => (
                   <Ionicons name="home-sharp" size={size} color={color} />
