@@ -1,6 +1,7 @@
 import React from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {ItemProps, ProfileScreenNavigationProp} from "../screens/SearchScreen";
+import {numberWithCommas} from "../utils/utils";
 
 type Props = {
     item: ItemProps;
@@ -16,7 +17,7 @@ const ListRenderItem = ({item, navigation}: Props) => {
                 <View style={styles.renderContainer}>
                     <View style={{flex: 1}}>
                         <Text style={styles.renderContainerTitle}>{item.country}</Text>
-                        <Text style={styles.renderContainerText}>Cases: {item.cases}</Text>
+                        <Text style={styles.renderContainerText}>Cases: {numberWithCommas(item.cases)}</Text>
                     </View>
                     <Image style={{width: 100, height: 100, flex: 1}} source={{uri: item.countryInfo.flag.toString()}}/>
                 </View>

@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Animated, View} from "react-native";
+import {Dimensions, StyleSheet, Animated, View, TouchableOpacity, Text} from "react-native";
 import React from "react";
 import ButtonWithIcon from "./ButtonWithIcon";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -22,36 +22,37 @@ const OverlayView: React.FC<Props> = ({
                                           sortByMostCases
                                       }) => {
     return (
-            <View style={styles.overlayContainer}>
-                <View style={styles.filterContainer}>
-                    <BouncyCheckbox
-                        size={25}
-                        fillColor="red"
-                        unfillColor="#FFFFFF"
-                        text="Sort by most cases"
-                        iconStyle={{borderColor: "red"}}
-                        onPress={() => {
-                            setSortByMostCases(!sortByMostCases);
-                        }}
-                        style={{marginTop: 10}}
-                    />
-                    <BouncyCheckbox
-                        size={25}
-                        fillColor="red"
-                        unfillColor="#FFFFFF"
-                        text="Sort by least cases"
-                        iconStyle={{borderColor: "red"}}
-                        onPress={() => {
-                            setSortByLeastCases(!sortByLeastCases)
-                        }}
-                        style={{marginTop: 10}}
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <ButtonWithIcon icon={"window-close"} setToggleOverlay={setToggleOverlay}
-                                    toggleOverlay={toggleOverlay}/>
-                </View>
+        <View style={styles.overlayContainer}>
+            <View style={styles.filterContainer}>
+                <BouncyCheckbox
+                    size={25}
+                    fillColor="red"
+                    unfillColor="#FFFFFF"
+                    text="Sort by most cases"
+                    iconStyle={{borderColor: "red"}}
+                    onPress={() => {
+                        setSortByMostCases(!sortByMostCases);
+                    }}
+                    style={{marginTop: 10}}
+                />
+
+                <BouncyCheckbox
+                    size={25}
+                    fillColor="red"
+                    unfillColor="#FFFFFF"
+                    text="Sort by least cases"
+                    iconStyle={{borderColor: "red"}}
+                    onPress={() => {
+                        setSortByLeastCases(!sortByLeastCases)
+                    }}
+                    style={{marginTop: 10}}
+                />
             </View>
+            <View style={styles.buttonContainer}>
+                <ButtonWithIcon icon={"window-close"} setToggleOverlay={setToggleOverlay}
+                                toggleOverlay={toggleOverlay}/>
+            </View>
+        </View>
     );
 }
 

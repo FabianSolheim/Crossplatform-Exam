@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Image, StyleSheet, Text, View} from "react-native";
 
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import { RouteProp } from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from "../../navigation/SearchNavigation";
 import {DailyStats, getSpecificCountry} from "../../api/diseaseApi";
 import {ItemProps, CountryInfo} from "../SearchScreen";
@@ -36,10 +36,10 @@ const SearchResultScreen: React.FC<Props> = ({navigation, route}) => {
         });
     }, [])
 
-    return(
+    return (
         <View>
-            <CountryView countryData={countryData} countryFlag={countryFlag} />
-     </View>
+            <CountryView countryData={countryData} countryFlag={countryFlag}/>
+        </View>
     );
 };
 

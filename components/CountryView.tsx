@@ -2,6 +2,8 @@ import {ItemProps} from "../screens/SearchScreen";
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import {numberWithCommas} from "../utils/utils";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../navigation/SearchNavigation";
 
 type CountryViewProps = {
     countryData: ItemProps;
