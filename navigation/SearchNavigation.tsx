@@ -1,6 +1,5 @@
 import React from "react";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 //Screens
 import SearchScreen from "../screens/SearchScreen";
@@ -15,7 +14,7 @@ export type RootStackParamList = {
 const SearchNavigation = () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
 
-    return(
+    return (
         <Stack.Navigator>
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{
                 headerTitle: "Search"

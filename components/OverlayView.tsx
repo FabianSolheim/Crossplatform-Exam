@@ -6,12 +6,13 @@ type Props = {
     toggleOverlay: boolean
     setToggleOverlay: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
+
 const OverlayView: React.FC<Props> = ({setToggleOverlay, toggleOverlay}) => {
-    return(
+    return (
         <View style={styles.overlayContainer}>
             <Text>Hi i am in the way</Text>
             <TouchableOpacity style={styles.button} onPress={() => setToggleOverlay(!toggleOverlay)}>
-                <Entypo name="circle-with-cross" size={24} color="black" />
+                <Entypo name="circle-with-cross" size={24} color="black"/>
             </TouchableOpacity>
         </View>
     )
