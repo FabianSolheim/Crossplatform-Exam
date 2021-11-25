@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 import {
     FlatList,
     SafeAreaView, View,
+    Animated
 } from "react-native";
 import {getAllCountries} from "../api/diseaseApi";
 import {RootStackParamList} from "../navigation/SearchNavigation";
@@ -60,7 +61,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         });
     }, []);
 
-    //This only runs when the user inputs text
+    //Filter by user text
     useEffect(() => {
         if (text.length === 0) {
             setFlatListData(allCountries);
@@ -72,36 +73,42 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
 
     //Sort by least cases
     useEffect(() => {
-        if(sortByLeastCases) {
-            const newArray = allCountries.sort((a, b) => a.cases - b.cases)
+        console.log(sortByLeastCases)
+        if (sortByLeastCases) {
+            const newArray = allCountries.sort((a: ItemProps, b: ItemProps) => a.cases - b.cases)
             setFlatListData(newArray);
         }
     }, [sortByLeastCases])
 
     //Sort by most cases
     useEffect(() => {
-        if(sortByMostCases) {
-            const newArray = allCountries.sort((a, b) => b.cases - a.cases)
+        if (sortByMostCases) {
+            const newArray = allCountries.sort((a: ItemProps, b: ItemProps) => b.cases - a.cases)
             setFlatListData(newArray);
         }
     }, [sortByMostCases])
+
     return (
         <SafeAreaView>
             <SearchBar setText={setText} setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>
-            {toggleOverlay && <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}
-                                           setSortByLeastCases={setSortByLeastCases} setSortByMostCases={setSortByMostCases}  sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}/>}
-            <FlatList
-                style={{marginTop: 5}}
-                data={flatListData}
-                renderItem={({item}) => {
-                    return <ListRenderItem item={item} navigation={navigation}/>
-                }}
-                keyExtractor={(item: ItemProps) => item.countryInfo._id.toString()}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-            />
+            {toggleOverlay &&
+                <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}
+                             setSortByLeastCases={setSortByLeastCases} setSortByMostCases={setSortByMostCases}
+                             sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}/>
+           }
+            <View style={{opacity: toggleOverlay ? 0.2 : 1}}>
+                <FlatList
+                    style={{marginTop: 5}}
+                    data={flatListData}
+                    renderItem={({item}) => {
+                        return <ListRenderItem item={item} navigation={navigation}/>
+                    }}
+                    keyExtractor={(item: ItemProps) => item.countryInfo._id.toString()}
+                    ItemSeparatorComponent={ItemSeparatorComponent}
+                />
+            </View>
         </SafeAreaView>
     );
 };
-
 
 export default SearchScreen;
