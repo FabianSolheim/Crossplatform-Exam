@@ -1,6 +1,7 @@
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import {numberWithCommas} from "../utils/utils";
+import Title from "./Title";
 
 type CountryViewProps = {
     countryFlag: string;
@@ -14,12 +15,14 @@ type CountryViewProps = {
 const CountryView: React.FC<CountryViewProps> = (props) => {
     const {countryName, countryFlag, countryPopulation, countryCases, countryCritical, countryDeaths} = props;
 
+    const titleString = `Statistics about ${countryName}`
     return (
         <View style={styles.container}>
             <View style={styles.cardContainer}>
                 <Image style={{height: 100, width: 150}} source={{uri: countryFlag}}/>
                 <Text style={styles.title}>{countryName}</Text>
             </View>
+            <Text style={styles.secondTitle}>Statistics about {countryName}</Text>
             <View style={styles.cardContainer}>
                 <Text style={styles.label}>Population:</Text>
                 <Text style={styles.text}>{numberWithCommas(countryPopulation)}</Text>
@@ -36,10 +39,10 @@ const CountryView: React.FC<CountryViewProps> = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 50,
-        alignItems: "center",
+        alignItems: "flex-start",
     },
     cardContainer: {
+        alignSelf: "center",
         textAlign: "left",
         width: Dimensions.get("window").width / 1.3,
         alignItems: "center",
@@ -65,7 +68,14 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         marginTop: 10,
-        fontFamily: 'Lato_700Bold_Italic'
+        fontFamily: 'Lato_700Bold_Italic',
+    },
+    secondTitle: {
+        fontSize: 20,
+        marginTop: 25,
+        fontFamily: 'Lato_700Bold',
+        alignSelf: "flex-start",
+        marginLeft: 50,
     },
     label: {
         marginTop: 10,

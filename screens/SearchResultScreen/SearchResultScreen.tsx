@@ -27,7 +27,6 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
 
         getSpecificCountry(country).then(data => {
             if (!data) return;
-            console.log('data from search results screen: ', data)
 
             setCountryName(data.country);
             setCountryPopulation(data.population);

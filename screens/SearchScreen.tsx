@@ -1,9 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {
-    FlatList,
-    SafeAreaView, View,
-} from "react-native";
+import {FlatList, SafeAreaView, View} from "react-native";
 import {getAllCountries, CountryInfo} from "../api/diseaseApi";
 
 //Components
@@ -12,6 +9,7 @@ import SearchBar from "../components/SearchBar";
 import ListRenderItem from "../components/ListRenderItem";
 import ItemSeparatorComponent from "../components/ItemSeparatorComponent";
 import {ProfileScreenNavigationProp} from "../utils/props";
+import LoadingView from "../components/LoadingView";
 
 //TODO: FIX THIS
 type Props = {
@@ -34,6 +32,8 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [text, setText] = useState("");
     const [toggleOverlay, setToggleOverlay] = useState<boolean>(false);
     const [flatListData, setFlatListData] = useState([]); //Having a unique one so we dont mutate the original array
+    const [isRefreshing, setIsRefresing] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>();
 
     //FILTERING
     const [sortByLeastCases, setSortByLeastCases] = useState<boolean>(false);
@@ -43,6 +43,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [mostCasesChecked, setMostCasesChecked] = useState<boolean>(false);
     const [leastCasesChecked, setLeastCasesChecked] = useState<boolean>(false);
 
+    //Fetch all countries
     useEffect(() => {
         getAllCountries().then(data => {
             setAllCountries([]);
@@ -79,6 +80,9 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         }
     }, [sortByMostCases])
 
+    if(isLoading) {
+        return <LoadingView />
+    }
     return (
         <SafeAreaView>
             <SearchBar setText={setText} setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>
@@ -88,7 +92,8 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
                          sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}
                          mostCasesChecked={mostCasesChecked} setMostCasesChecked={setMostCasesChecked}
                          leastCasesChecked={leastCasesChecked} setLeastCasesChecked={setLeastCasesChecked}
-            />}
+            />
+            }
             <View style={{opacity: toggleOverlay ? 0.2 : 1}}>
                 <FlatList
                     style={{marginTop: 5}}
@@ -98,6 +103,12 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
                     }}
                     keyExtractor={(item: ItemProps) => item.countryInfo._id.toString()}
                     ItemSeparatorComponent={ItemSeparatorComponent}
+                    onRefresh={() => {
+                        setIsRefresing(true);
+                        setFlatListData([...allCountries]);
+                        setIsRefresing(false);
+                    }}
+                    refreshing={isRefreshing}
                 />
             </View>
         </SafeAreaView>

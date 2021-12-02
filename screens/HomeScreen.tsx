@@ -66,7 +66,6 @@ const HomeScreen: React.FC = () => {
             const {cases} = data.timeline;
 
             for (const [key, value] of Object.entries(cases)) {
-                console.log(`${key}: ${value}`);
                 if (typeof value === "number") {
                     setCountryChartCases(prevState => [...prevState, value]);
                     setCountryChartDates(prevState => [...prevState, formatDate(key.toString())])
@@ -81,12 +80,9 @@ const HomeScreen: React.FC = () => {
                 <Title title={"Total Global Stats"}/>
                 <StatsView cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal}
                            title={"Total"}/>
-
-
                 <Title title={"Daily Global Stats"}/>
                 <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday}
                            title={"Daily"}/>
-
                 <Title title={"Cases Last 10 Days, Norway"}/>
                 { /* <ChartDisplay cases={countryChartCases} dates={countryChartDates}/> */}
             </ScrollView>
