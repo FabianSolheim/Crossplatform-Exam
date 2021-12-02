@@ -21,15 +21,18 @@ type Props = {
 }
 
 const SearchResultScreen: React.FC<Props> = ({navigation, route}) => {
-    const [countryCode, setCountryCode] = useState("");
-    const [countryData, setCountryData] = useState<ItemProps>({});
+    const [countryCode, setCountryCode] = useState(""); //TODO: DO WE NEED THIS?
+    const [countryData, setCountryData] = useState<DailyStats>({});
     const [countryFlag, setCountryFlag] = useState("");
+
     useEffect(() => {
         //TODO: FIX THIS
         // @ts-ignore
         const {country} = route.params;
 
         getSpecificCountry(country).then(data => {
+            if(!data) return;
+
             setCountryData(data);
             setCountryFlag(data.countryInfo.flag)
             console.log(data.countryInfo.flag) //TODO: HANDLE ERROR FOR FLAG

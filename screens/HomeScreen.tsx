@@ -28,6 +28,7 @@ const HomeScreen: React.FC = () => {
 
     useEffect(() => {
         getDailyStats().then(data => {
+            if (!data) return;
 
             setCasesToday(data.todayCases)
             setDeathsToday(data.todayDeaths)
@@ -38,9 +39,10 @@ const HomeScreen: React.FC = () => {
         });
 
         getTotalVaccinations().then(data => {
-            const {daily, total} = data[0]
-            setVaccinationsToday(daily)
-            setVaccinationsTotal(total)
+            if (!data) return;
+
+            setVaccinationsToday(data[0].daily)
+            setVaccinationsTotal(data[0].total)
         });
 
         //TODO: ADD LOCATION DATA HERE
@@ -51,7 +53,7 @@ const HomeScreen: React.FC = () => {
 
             for (const [key, value] of Object.entries(cases)) {
                 console.log(`${key}: ${value}`);
-                if(typeof value === "number"){
+                if (typeof value === "number") {
                     setCountryChartCases(prevState => [...prevState, value]);
                     setCountryChartDates(prevState => [...prevState, formatDate(key.toString())])
                 }
@@ -59,21 +61,23 @@ const HomeScreen: React.FC = () => {
         })
     }, []);
 
-    return(
+    return (
         <SafeAreaView>
             <ScrollView>
                 {/* These should maybe be its own component? */}
-                <Title title={"Total Global Stats"} />
-                <StatsView cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal} title={"Total"} />
+                <Title title={"Total Global Stats"}/>
+                <StatsView cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal}
+                           title={"Total"}/>
 
 
-                <Title title={"Daily Global Stats"} />
-                <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday} title={"Daily"} />
+                <Title title={"Daily Global Stats"}/>
+                <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday}
+                           title={"Daily"}/>
 
-                    <Title title={"Cases Last 10 Days, Norway"} />
+                <Title title={"Cases Last 10 Days, Norway"}/>
                 { /*
                     <ChartDisplay cases={countryChartCases} dates={countryChartDates} />
-               */ }
+               */}
             </ScrollView>
         </SafeAreaView>
     );

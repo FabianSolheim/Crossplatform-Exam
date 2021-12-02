@@ -7,6 +7,8 @@ import { Fontisto } from '@expo/vector-icons';
 import HomeNavigation from "./navigation/HomeNavigation";
 import SearchNavigation from "./navigation/SearchNavigation";
 
+
+//TODO: REQUEST LOCATION FROM USER
 const App = () => {
     const Tab = createBottomTabNavigator();
     return (

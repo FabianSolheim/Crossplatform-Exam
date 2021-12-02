@@ -73,10 +73,9 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
 
     //Sort by least cases
     useEffect(() => {
-        console.log(sortByLeastCases)
         if (sortByLeastCases) {
             const newArray = allCountries.sort((a: ItemProps, b: ItemProps) => a.cases - b.cases)
-            setFlatListData(newArray);
+            setFlatListData([...newArray]);
         }
     }, [sortByLeastCases])
 
@@ -84,7 +83,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     useEffect(() => {
         if (sortByMostCases) {
             const newArray = allCountries.sort((a: ItemProps, b: ItemProps) => b.cases - a.cases)
-            setFlatListData(newArray);
+            setFlatListData([...newArray]);
         }
     }, [sortByMostCases])
 

@@ -1,5 +1,9 @@
 import axios from "axios";
 
+type CountryInfo = {
+    flag: string;
+}
+//TODO: Remove uneccsary stats. Make entire API in one Type/Interface.
 //This gets the daily covid stats
 export type DailyStats = {
     active: number,
@@ -23,10 +27,13 @@ export type DailyStats = {
     todayDeaths: number
     todayRecovered: number,
     updated: number,
+    countryInfo: CountryInfo,
     //TODO: These should prooobably be its own ting
     country: string,
     flag: string
 }
+
+//TODO: Create Type for CountryInfo
 
 async function getDailyStats(){
     try {
@@ -49,7 +56,7 @@ type TotalVaccinations = {
 
 async function getTotalVaccinations() {
     try {
-        const request = await axios.get<TotalVaccinations>("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true");
+        const request = await axios.get<[TotalVaccinations]>("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=true");
         return request.data
     } catch (e) {
         //TODO: HANDLE ERRORS PROPERLY
