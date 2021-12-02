@@ -56,16 +56,20 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
+        marginTop: 10,
+        fontFamily: 'Lato_700Bold_Italic'
     },
     label: {
         marginTop: 10,
         marginBottom: 2,
         fontSize: 24,
         alignSelf: "flex-start",
+        fontFamily: 'Lato_400Regular'
     },
     text: {
         fontSize: 16,
         alignSelf: "flex-start",
+        fontFamily: 'Lato_400Regular'
     }
 });
 

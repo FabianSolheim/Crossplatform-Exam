@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         padding: 10,
-        borderColor: "#111111"
+        borderColor: "#111111",
+        fontFamily: 'Lato_400Regular'
     },
 });
 

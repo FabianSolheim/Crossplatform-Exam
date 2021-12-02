@@ -15,19 +15,19 @@ const StatsView = ({cases, vaccinations, tests, deaths, title}: Props) => {
         <View style={styles.container}>
             <View>
                 <Text style={styles.label}>{title} covid cases</Text>
-                <Text>{numberWithCommas(cases)}</Text>
+                <Text style={styles.regularText}>{numberWithCommas(cases)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} vaccinations</Text>
-                <Text>{numberWithCommas(vaccinations)}</Text>
+                <Text style={styles.regularText}>{numberWithCommas(vaccinations)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} tests</Text>
-                <Text>{numberWithCommas(tests)}</Text>
+                <Text style={styles.regularText}>{numberWithCommas(tests)}</Text>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>{title} deaths</Text>
-                <Text>{numberWithCommas(deaths)}</Text>
+                <Text style={styles.regularText}>{numberWithCommas(deaths)}</Text>
             </View>
         </View>
     )
@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: "bold",
         fontSize: 16,
+        fontFamily: 'Lato_700Bold'
+    },
+    regularText: {
+        fontFamily: 'Lato_400Regular'
     }
 })
 

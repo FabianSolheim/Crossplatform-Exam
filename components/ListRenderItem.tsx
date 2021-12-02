@@ -40,9 +40,11 @@ const styles = StyleSheet.create({
     },
     renderContainerTitle: {
         fontSize: 20,
+        fontFamily: 'Lato_700Bold'
     },
     renderContainerText: {
         fontSize: 16,
+        fontFamily: 'Lato_400Regular'
     },
 });
 

@@ -42,6 +42,7 @@ const OverlayView: React.FC<Props> = ({
                     iconStyle={{borderColor: "red"}}
                     textStyle={{
                         textDecorationLine: "none",
+                        fontFamily: 'Lato_400Regular'
                     }}
                     isChecked={mostCasesChecked}
                     onPress={() => {
@@ -60,6 +61,7 @@ const OverlayView: React.FC<Props> = ({
                     iconStyle={{borderColor: "red"}}
                     textStyle={{
                         textDecorationLine: "none",
+                        fontFamily: 'Lato_400Regular'
                     }}
                     isChecked={leastCasesChecked}
                     onPress={() => {

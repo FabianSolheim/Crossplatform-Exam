@@ -2,6 +2,20 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, ScrollView} from "react-native";
 import {getDailyStats, getDataSeriesAllTime, getDataSeriesCountry, getTotalVaccinations} from "../api/diseaseApi";
 import {formatDate} from "../utils/utils";
+import {
+    useFonts,
+    Lato_100Thin,
+    Lato_100Thin_Italic,
+    Lato_300Light,
+    Lato_300Light_Italic,
+    Lato_400Regular,
+    Lato_400Regular_Italic,
+    Lato_700Bold,
+    Lato_700Bold_Italic,
+    Lato_900Black,
+    Lato_900Black_Italic,
+} from '@expo-google-fonts/lato';
+
 
 //Components
 import Title from "../components/Title";
@@ -9,6 +23,8 @@ import StatsView from "../components/StatsView";
 import ChartDisplay from "../components/ChartDisplay";
 
 const HomeScreen: React.FC = () => {
+
+
     //DAILY
     const [casesToday, setCasesToday] = useState(0);
     const [vaccinationsToday, setVaccinationsToday] = useState(0);
