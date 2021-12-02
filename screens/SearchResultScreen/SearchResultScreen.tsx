@@ -1,49 +1,44 @@
 import React, {useEffect, useState} from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
-
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from "../../navigation/SearchNavigation";
-import {DailyStats, getSpecificCountry} from "../../api/diseaseApi";
-import {ItemProps, CountryInfo} from "../SearchScreen";
+import {View} from "react-native";
+import {getSpecificCountry} from "../../api/diseaseApi";
+import {ProfileScreenNavigationProp, ProfileScreenRouteProp} from "../../utils/props";
 
 // Components
 import CountryView from "../../components/CountryView";
 
-//TODO: Refactor this shit
-type ProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SearchResultScreen'>;
-
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'SearchResultScreen'>;
-
-type Props = {
+type SearchResultScreenProps = {
     navigation: ProfileScreenNavigationProp;
     route: ProfileScreenRouteProp | null;
 }
 
-const SearchResultScreen: React.FC<Props> = ({navigation, route}) => {
-    const [countryCode, setCountryCode] = useState(""); //TODO: DO WE NEED THIS?
-    const [countryData, setCountryData] = useState<DailyStats>({});
+const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, route}) => {
     const [countryFlag, setCountryFlag] = useState("");
+    const [countryName, setCountryName] = useState("");
+    const [countryPopulation, setCountryPopulation] = useState(0);
+    const [countryCases, setCountryCases] = useState(0);
 
     useEffect(() => {
+
         //TODO: FIX THIS
         // @ts-ignore
         const {country} = route.params;
 
         getSpecificCountry(country).then(data => {
-            if(!data) return;
-
-            setCountryData(data);
+            if (!data) return;
+            console.log(data.country);
+            setCountryName(data.country);
+            setCountryPopulation(data.population);
+            setCountryCases(data.cases);
             setCountryFlag(data.countryInfo.flag)
-            console.log(data.countryInfo.flag) //TODO: HANDLE ERROR FOR FLAG
         });
     }, [])
 
     return (
         <View>
-            <CountryView countryData={countryData} countryFlag={countryFlag}/>
+            <CountryView countryName={countryName} countryFlag={countryFlag} countryPopulation={countryPopulation} countryCases={countryCases}/>
         </View>
     );
+
 };
 
 export default SearchResultScreen;

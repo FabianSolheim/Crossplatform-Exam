@@ -1,7 +1,7 @@
-import {Dimensions, StyleSheet, Animated, View, TouchableOpacity, Text, TouchableWithoutFeedback} from "react-native";
-import React from "react";
-import ButtonWithIcon from "./ButtonWithIcon";
+import {StyleSheet, View, Text} from "react-native";
+import React, {useState} from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import {Overlay} from 'react-native-elements';
 
 type Props = {
     toggleOverlay: boolean
@@ -10,6 +10,10 @@ type Props = {
     setSortByLeastCases: (value: boolean | ((prevVar: boolean) => boolean)) => void;
     sortByMostCases: boolean;
     setSortByMostCases: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+    mostCasesChecked: boolean;
+    setMostCasesChecked: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+    leastCasesChecked: boolean;
+    setLeastCasesChecked: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
 const OverlayView: React.FC<Props> = ({
@@ -18,69 +22,63 @@ const OverlayView: React.FC<Props> = ({
                                           setSortByLeastCases,
                                           setSortByMostCases,
                                           sortByLeastCases,
-                                          sortByMostCases
+                                          sortByMostCases,
+                                          mostCasesChecked,
+                                          setMostCasesChecked,
+                                          leastCasesChecked,
+                                          setLeastCasesChecked
                                       }) => {
-    return (
-        <View style={styles.overlayContainer}>
-            <View style={{flexDirection: "row"}}>
-                <View style={styles.filterContainer}>
-                    <BouncyCheckbox
-                        size={25}
-                        fillColor="red"
-                        unfillColor="#FFFFFF"
-                        text="Sort by most cases"
-                        iconStyle={{borderColor: "red"}}
-                        onPress={() => {
-                            setSortByMostCases(!sortByMostCases);
-                        }}
-                        style={{marginTop: 10}}
-                    />
 
-                    <BouncyCheckbox
-                        size={25}
-                        fillColor="red"
-                        unfillColor="#FFFFFF"
-                        text="Sort by least cases"
-                        iconStyle={{borderColor: "red"}}
-                        onPress={() => {
-                            setSortByLeastCases(!sortByLeastCases)
-                        }}
-                        style={{marginTop: 10}}
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <ButtonWithIcon icon={"window-close"} setToggleOverlay={setToggleOverlay}
-                                    toggleOverlay={toggleOverlay}/>
-                </View>
-            </View>
-            <TouchableWithoutFeedback>
-                <View style={{flex: 1, opacity: 0.2, backgroundColor: "red"}}/>
-            </TouchableWithoutFeedback>
+    return (
+        <View>
+            <Overlay overlayStyle={{padding: 20}} isVisible={toggleOverlay}
+                     onBackdropPress={() => setToggleOverlay(!toggleOverlay)}>
+                <Text style={styles.title}>Choose a filter:</Text>
+                <BouncyCheckbox
+                    size={25}
+                    fillColor="red"
+                    unfillColor="#FFFFFF"
+                    text="Sort by most cases"
+                    iconStyle={{borderColor: "red"}}
+                    textStyle={{
+                        textDecorationLine: "none",
+                    }}
+                    isChecked={mostCasesChecked}
+                    onPress={() => {
+                        setSortByMostCases(!sortByMostCases);
+                        setMostCasesChecked(!mostCasesChecked);
+                        //So the user only can toggle one checkbox at a time
+                        setLeastCasesChecked( false); //TODO: FIX THIS
+                    }}
+                    style={{marginTop: 10}}
+                />
+
+                <BouncyCheckbox
+                    size={25}
+                    fillColor="red"
+                    unfillColor="#FFFFFF"
+                    text="Sort by least cases"
+                    iconStyle={{borderColor: "red"}}
+                    textStyle={{
+                        textDecorationLine: "none",
+                    }}
+                    isChecked={leastCasesChecked}
+                    onPress={() => {
+                        setSortByLeastCases(!sortByLeastCases);
+                        setLeastCasesChecked(!leastCasesChecked);
+                        setMostCasesChecked(false);
+                    }}
+                    style={{marginTop: 10}}
+                />
+            </Overlay>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        alignSelf: "center",
-        flex: 0.15
-    },
-    overlayContainer: {
-        width: Dimensions.get("window").width,
-        backgroundColor: "white",
-        zIndex: 99,
-        position: "absolute",
-        flexDirection: "column",
-    },
-    restOfPageContainer: {},
-    buttonContainer: {
-        flex: 1,
-        padding: 10,
-        width: Dimensions.get("window").width / 2
-    },
-    filterContainer: {
-        flex: 4,
-        padding: 10,
+    title: {
+        fontSize: 16,
+        marginBottom: 10,
     }
 });
 

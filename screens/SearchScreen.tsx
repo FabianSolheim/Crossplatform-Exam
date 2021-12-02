@@ -1,24 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 import {
     FlatList,
     SafeAreaView, View,
-    Animated
 } from "react-native";
-import {getAllCountries} from "../api/diseaseApi";
-import {RootStackParamList} from "../navigation/SearchNavigation";
+import {getAllCountries, CountryInfo} from "../api/diseaseApi";
 
 //Components
 import OverlayView from "../components/OverlayView";
 import SearchBar from "../components/SearchBar";
 import ListRenderItem from "../components/ListRenderItem";
 import ItemSeparatorComponent from "../components/ItemSeparatorComponent";
+import {ProfileScreenNavigationProp} from "../utils/props";
 
-//TODO: REFACTOR PROPS
-export type ProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList,
-    'SearchScreen'>;
-
+//TODO: FIX THIS
 type Props = {
     item: ItemProps;
     navigation: ProfileScreenNavigationProp
@@ -34,13 +29,6 @@ export type ItemProps = {
     population: string;
 }
 
-export type CountryInfo = {
-    _id: number
-    flag: string;
-    iso2: string;
-    iso3: string
-}
-
 const SearchScreen: React.FC<Props> = ({navigation}) => {
     const [allCountries, setAllCountries] = useState([]);
     const [text, setText] = useState("");
@@ -50,6 +38,10 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     //FILTERING
     const [sortByLeastCases, setSortByLeastCases] = useState<boolean>(false);
     const [sortByMostCases, setSortByMostCases] = useState<boolean>(false);
+
+    //CHECKBOXES
+    const [mostCasesChecked, setMostCasesChecked] = useState<boolean>(false);
+    const [leastCasesChecked, setLeastCasesChecked] = useState<boolean>(false);
 
     useEffect(() => {
         getAllCountries().then(data => {
@@ -91,10 +83,12 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
         <SafeAreaView>
             <SearchBar setText={setText} setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}/>
             {toggleOverlay &&
-                <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}
-                             setSortByLeastCases={setSortByLeastCases} setSortByMostCases={setSortByMostCases}
-                             sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}/>
-           }
+            <OverlayView setToggleOverlay={setToggleOverlay} toggleOverlay={toggleOverlay}
+                         setSortByLeastCases={setSortByLeastCases} setSortByMostCases={setSortByMostCases}
+                         sortByLeastCases={sortByLeastCases} sortByMostCases={sortByMostCases}
+                         mostCasesChecked={mostCasesChecked} setMostCasesChecked={setMostCasesChecked}
+                         leastCasesChecked={leastCasesChecked} setLeastCasesChecked={setLeastCasesChecked}
+            />}
             <View style={{opacity: toggleOverlay ? 0.2 : 1}}>
                 <FlatList
                     style={{marginTop: 5}}

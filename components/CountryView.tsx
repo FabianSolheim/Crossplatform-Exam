@@ -1,27 +1,26 @@
-import {ItemProps} from "../screens/SearchScreen";
-import React from "react";
+import React, {useEffect} from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import {numberWithCommas} from "../utils/utils";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {RootStackParamList} from "../navigation/SearchNavigation";
 
 type CountryViewProps = {
-    countryData: ItemProps;
     countryFlag: string;
+    countryName: string;
+    countryPopulation: number;
+    countryCases: number;
 }
 
-const CountryView: React.FC<CountryViewProps> = ({countryData, countryFlag}) => {
-    return(
+const CountryView: React.FC<CountryViewProps> = ({countryName, countryFlag, countryPopulation, countryCases}) => {
+    return (
         <View style={styles.container}>
             <View style={styles.cardContainer}>
-                <Image style={{height: 100, width: 150}} source={{uri: countryFlag}} />
-                <Text style={styles.title}>{countryData.country}</Text>
+                <Image style={{height: 100, width: 150}} source={{uri: countryFlag}}/>
+                <Text style={styles.title}>{countryName}</Text>
             </View>
-            <View style={styles.cardContainer} >
+            <View style={styles.cardContainer}>
                 <Text style={styles.label}>Cases: </Text>
-                <Text style={styles.text}>{countryData.cases}</Text>
-                <Text style={styles.label}>Population</Text>
-                <Text style={styles.text}>{numberWithCommas(parseInt(countryData.population))}</Text>
+                <Text style={styles.text}>{numberWithCommas(countryCases)}</Text>
+                <Text style={styles.label}>Population:</Text>
+                <Text style={styles.text}>{numberWithCommas(countryPopulation)}</Text>
             </View>
         </View>
     );
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         textAlign: "left",
-        width: Dimensions.get("window").width / 1.3 ,
+        width: Dimensions.get("window").width / 1.3,
         alignItems: "center",
         flexDirection: "column",
         marginLeft: 15,
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
     },
     label: {
         marginTop: 10,
+        marginBottom: 2,
         fontSize: 24,
         alignSelf: "flex-start",
     },

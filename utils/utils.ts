@@ -1,3 +1,7 @@
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../navigation/SearchNavigation";
+import {RouteProp} from "@react-navigation/native";
+
 const formatDate = (date: string) => {
     let newString = "";
     const dateArray = date.split("/");
@@ -13,5 +17,5 @@ const numberWithCommas = (num: number) => {
 
 export {
     formatDate,
-    numberWithCommas
+    numberWithCommas,
 }

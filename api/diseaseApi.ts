@@ -1,8 +1,12 @@
 import axios from "axios";
 
-type CountryInfo = {
+export type CountryInfo = {
+    _id: number
     flag: string;
+    iso2: string;
+    iso3: string
 }
+
 //TODO: Remove uneccsary stats. Make entire API in one Type/Interface.
 //This gets the daily covid stats
 export type DailyStats = {

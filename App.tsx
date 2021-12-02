@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Fontisto } from '@expo/vector-icons';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Fontisto} from '@expo/vector-icons';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 //Navigators
 import HomeNavigation from "./navigation/HomeNavigation";
@@ -12,22 +13,25 @@ import SearchNavigation from "./navigation/SearchNavigation";
 const App = () => {
     const Tab = createBottomTabNavigator();
     return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Overview" component={HomeNavigation} options={{
-              tabBarIcon: ({size, color}) => (
-                  <Fontisto name="home" size={size} color={color} />
-              )
-          }}/>
-            <Tab.Screen name="Countries" component={SearchNavigation} options={{
-                tabBarIcon: ({size, color}) => (
-                    <Fontisto name="world-o" size={size} color={color} />
-                ),
-                headerShown: false
-            }}/>
-        </Tab.Navigator>
-      </NavigationContainer>
-  );
+        <SafeAreaProvider>
+
+            <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen name="Overview" component={HomeNavigation} options={{
+                        tabBarIcon: ({size, color}) => (
+                            <Fontisto name="home" size={size} color={color}/>
+                        )
+                    }}/>
+                    <Tab.Screen name="Countries" component={SearchNavigation} options={{
+                        tabBarIcon: ({size, color}) => (
+                            <Fontisto name="world-o" size={size} color={color}/>
+                        ),
+                        headerShown: false
+                    }}/>
+                </Tab.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
+    );
 }
 
 export default App;
