@@ -16,6 +16,8 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
     const [countryName, setCountryName] = useState("");
     const [countryPopulation, setCountryPopulation] = useState(0);
     const [countryCases, setCountryCases] = useState(0);
+    const [countryCritical, setCountryCritical] = useState(0);
+    const [countryDeaths, setCountryDeaths] = useState(0);
 
     useEffect(() => {
 
@@ -25,17 +27,21 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
 
         getSpecificCountry(country).then(data => {
             if (!data) return;
-            console.log(data.country);
+            console.log('data from search results screen: ', data)
+
             setCountryName(data.country);
             setCountryPopulation(data.population);
             setCountryCases(data.cases);
             setCountryFlag(data.countryInfo.flag)
+            setCountryCritical(data.critical)
+            setCountryDeaths(data.deaths);
         });
     }, [])
 
     return (
         <View>
-            <CountryView countryName={countryName} countryFlag={countryFlag} countryPopulation={countryPopulation} countryCases={countryCases}/>
+            <CountryView countryName={countryName} countryFlag={countryFlag} countryPopulation={countryPopulation}
+                         countryCases={countryCases} countryCritical={countryCritical} countryDeaths={countryDeaths}/>
         </View>
     );
 

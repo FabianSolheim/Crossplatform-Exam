@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import {numberWithCommas} from "../utils/utils";
 
@@ -7,9 +7,13 @@ type CountryViewProps = {
     countryName: string;
     countryPopulation: number;
     countryCases: number;
+    countryCritical: number;
+    countryDeaths: number;
 }
 
-const CountryView: React.FC<CountryViewProps> = ({countryName, countryFlag, countryPopulation, countryCases}) => {
+const CountryView: React.FC<CountryViewProps> = (props) => {
+    const {countryName, countryFlag, countryPopulation, countryCases, countryCritical, countryDeaths} = props;
+
     return (
         <View style={styles.container}>
             <View style={styles.cardContainer}>
@@ -17,10 +21,14 @@ const CountryView: React.FC<CountryViewProps> = ({countryName, countryFlag, coun
                 <Text style={styles.title}>{countryName}</Text>
             </View>
             <View style={styles.cardContainer}>
-                <Text style={styles.label}>Cases: </Text>
-                <Text style={styles.text}>{numberWithCommas(countryCases)}</Text>
                 <Text style={styles.label}>Population:</Text>
                 <Text style={styles.text}>{numberWithCommas(countryPopulation)}</Text>
+                <Text style={styles.label}>Cases: </Text>
+                <Text style={styles.text}>{numberWithCommas(countryCases)}</Text>
+                <Text style={styles.label}>Deaths: </Text>
+                <Text style={styles.text}>{numberWithCommas(countryDeaths)}</Text>
+                <Text style={styles.label}>Critical conditions: </Text>
+                <Text style={styles.text}>{numberWithCommas(countryCritical)}</Text>
             </View>
         </View>
     );
