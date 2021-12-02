@@ -47,8 +47,7 @@ const OverlayView: React.FC<Props> = ({
                     onPress={() => {
                         setSortByMostCases(!sortByMostCases);
                         setMostCasesChecked(!mostCasesChecked);
-                        //So the user only can toggle one checkbox at a time
-                        setLeastCasesChecked( false); //TODO: FIX THIS
+                        //TODO: LEAST CASES CHECKBOX FIX
                     }}
                     style={{marginTop: 10}}
                 />
@@ -66,7 +65,6 @@ const OverlayView: React.FC<Props> = ({
                     onPress={() => {
                         setSortByLeastCases(!sortByLeastCases);
                         setLeastCasesChecked(!leastCasesChecked);
-                        setMostCasesChecked(false);
                     }}
                     style={{marginTop: 10}}
                 />

@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
-
-//API
+import {SafeAreaView, StyleSheet, ScrollView} from "react-native";
 import {getDailyStats, getDataSeriesAllTime, getDataSeriesCountry, getTotalVaccinations} from "../api/diseaseApi";
 import {formatDate} from "../utils/utils";
 
@@ -64,7 +62,6 @@ const HomeScreen: React.FC = () => {
     return (
         <SafeAreaView>
             <ScrollView>
-                {/* These should maybe be its own component? */}
                 <Title title={"Total Global Stats"}/>
                 <StatsView cases={casesTotal} tests={testsTotal} vaccinations={vaccinationsTotal} deaths={deathsTotal}
                            title={"Total"}/>
@@ -75,9 +72,7 @@ const HomeScreen: React.FC = () => {
                            title={"Daily"}/>
 
                 <Title title={"Cases Last 10 Days, Norway"}/>
-                { /*
-                    <ChartDisplay cases={countryChartCases} dates={countryChartDates} />
-               */}
+                { /* <ChartDisplay cases={countryChartCases} dates={countryChartDates}/> */}
             </ScrollView>
         </SafeAreaView>
     );
