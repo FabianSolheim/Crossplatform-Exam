@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {View} from "react-native";
 import {getSpecificCountry} from "../../api/diseaseApi";
 import {ProfileScreenNavigationProp, ProfileScreenRouteProp} from "../../utils/props";
-
+import LoadingView from "../../components/LoadingView";
 // Components
 import CountryView from "../../components/CountryView";
 
@@ -18,6 +18,8 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
     const [countryCases, setCountryCases] = useState(0);
     const [countryCritical, setCountryCritical] = useState(0);
     const [countryDeaths, setCountryDeaths] = useState(0);
+
+
 
     useEffect(() => {
 
@@ -36,6 +38,10 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
             setCountryDeaths(data.deaths);
         });
     }, [])
+
+    if(countryFlag === ""){
+        return <LoadingView />
+    }
 
     return (
         <View>

@@ -1,9 +1,11 @@
 import React from "react";
-import {Text, View, StyleSheet, Image, Dimensions} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import {numberWithCommas} from "../utils/utils";
 
 //SVGS
+// @ts-ignore
 import World1 from "../world1.svg";
+// @ts-ignore
 import Sick1 from "../sick1.svg";
 
 type Props = {

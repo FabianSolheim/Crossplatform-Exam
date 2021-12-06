@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Fontisto} from '@expo/vector-icons';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
 //Navigators
 import HomeNavigation from "./navigation/HomeNavigation";
@@ -23,8 +24,11 @@ import {
 
 import LoadingView from "./components/LoadingView";
 
+
 //TODO: REQUEST LOCATION FROM USER
 const App = () => {
+    const Tab = createBottomTabNavigator();
+
     //Custom fonts
     let [fontsLoaded] = useFonts({
         Lato_100Thin,
@@ -39,28 +43,27 @@ const App = () => {
         Lato_900Black_Italic,
     });
 
-    const Tab = createBottomTabNavigator();
     if (!fontsLoaded) {
         return <LoadingView/>
     } else {
         return (
-            <SafeAreaProvider>
-                <NavigationContainer>
-                    <Tab.Navigator>
-                        <Tab.Screen name="Overview" component={HomeNavigation} options={{
-                            tabBarIcon: ({size, color}) => (
-                                <Fontisto name="home" size={size} color={color}/>
-                            )
-                        }}/>
-                        <Tab.Screen name="Countries" component={SearchNavigation} options={{
-                            tabBarIcon: ({size, color}) => (
-                                <Fontisto name="world-o" size={size} color={color}/>
-                            ),
-                            headerShown: false
-                        }}/>
-                    </Tab.Navigator>
-                </NavigationContainer>
-            </SafeAreaProvider>
+                <SafeAreaProvider>
+                    <NavigationContainer>
+                        <Tab.Navigator>
+                            <Tab.Screen name="Overview" component={HomeNavigation} options={{
+                                tabBarIcon: ({size, color}) => (
+                                    <Fontisto name="home" size={size} color={color}/>
+                                )
+                            }}/>
+                            <Tab.Screen name="Countries" component={SearchNavigation} options={{
+                                tabBarIcon: ({size, color}) => (
+                                    <Fontisto name="world-o" size={size} color={color}/>
+                                ),
+                                headerShown: false
+                            }}/>
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </SafeAreaProvider>
         );
     }
 }
