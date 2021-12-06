@@ -7,7 +7,7 @@ export type CountryInfo = {
     iso3: string
 }
 
-//TODO: Remove uneccsary stats. Make entire API in one Type/Interface.
+//TODO: Remove uneccsary stats. Make entire API in one Type/Interface?.
 //This gets the daily covid stats
 export type DailyStats = {
     active: number,
@@ -81,7 +81,7 @@ async function getDataSeriesAllTime(){
 
 async function getDataSeriesCountry(country: string) {
     try {
-        const url = `https://disease.sh/v3/covid-19/historical/${country.toLowerCase()}?lastdays=1`
+        const url = `https://disease.sh/v3/covid-19/historical/${country.toLowerCase()}?lastdays=7`
         const request = await axios.get(url);
         return request.data;
     } catch (e) {

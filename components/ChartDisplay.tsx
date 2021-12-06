@@ -5,16 +5,14 @@ import {
 } from "react-native-chart-kit";
 
 type Props = {
-    cases: any;
+    cases: number[];
     dates: string[];
 }
 
 
-const ChartDisplay = ({cases, dates}: Props) => {
+const ChartDisplay: React.FC<Props> = ({cases, dates}) => {
     const [currentCases, setCurrentCases] = useState<number[]>([]);
 
-    console.log(cases.length);
-    console.log(dates.length);
     return(
         <View >
             <LineChart

@@ -36,7 +36,7 @@ const StatsView = ({cases, vaccinations, tests, deaths, title}: Props) => {
                 </View>
             </View>
             <View style={styles.rightInnerContainer}>
-                {title === "Total" &&<World1 height={130} width={130}/>}
+                {title === "Total" && <World1 height={130} width={130}/>}
                 {title === "Daily" && <Sick1 height={130} width={130}/>}
             </View>
         </View>

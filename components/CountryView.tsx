@@ -1,7 +1,6 @@
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import {numberWithCommas} from "../utils/utils";
-import Title from "./Title";
 
 type CountryViewProps = {
     countryFlag: string;
@@ -14,15 +13,15 @@ type CountryViewProps = {
 
 const CountryView: React.FC<CountryViewProps> = (props) => {
     const {countryName, countryFlag, countryPopulation, countryCases, countryCritical, countryDeaths} = props;
+    const titleString = `Statistics about ${countryName}`;
 
-    const titleString = `Statistics about ${countryName}`
     return (
         <View style={styles.container}>
             <View style={styles.cardContainer}>
                 <Image style={{height: 100, width: 150}} source={{uri: countryFlag}}/>
                 <Text style={styles.title}>{countryName}</Text>
             </View>
-            <Text style={styles.secondTitle}>Statistics about {countryName}</Text>
+            <Text style={styles.secondTitle}>{titleString}</Text>
             <View style={styles.cardContainer}>
                 <Text style={styles.label}>Population:</Text>
                 <Text style={styles.text}>{numberWithCommas(countryPopulation)}</Text>

@@ -43,7 +43,7 @@ const HomeScreen: React.FC = () => {
     useEffect(() => {
         getDailyStats().then(data => {
             if (!data) return;
-
+            console.log(data)
             setCasesToday(data.todayCases)
             setDeathsToday(data.todayDeaths)
 
@@ -61,8 +61,10 @@ const HomeScreen: React.FC = () => {
 
         //TODO: ADD LOCATION DATA HERE
         getDataSeriesCountry("norway").then(data => {
-            setCountryChartCases([]); //reset state array
+            //reset state array
+            setCountryChartCases([]);
             setCountryChartDates([]);
+            console.log(data.timeline)
             const {cases} = data.timeline;
 
             for (const [key, value] of Object.entries(cases)) {
@@ -84,14 +86,14 @@ const HomeScreen: React.FC = () => {
                 <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday}
                            title={"Daily"}/>
                 <Title title={"Cases Last 10 Days, Norway"}/>
-                { /* <ChartDisplay cases={countryChartCases} dates={countryChartDates}/> */}
+                {/* <ChartDisplay cases={countryChartCases} dates={countryChartDates}/> */}
             </ScrollView>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {}
 })
 
 export default HomeScreen;
