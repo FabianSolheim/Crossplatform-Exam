@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet, TouchableOpacity} from "react-native";
 import {Fontisto} from "@expo/vector-icons";
-import { FontAwesome5 } from '@expo/vector-icons';
+import {FontAwesome5} from '@expo/vector-icons';
 import React from "react";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 const ButtonWithIcon: React.FC<Props> = ({icon, setToggleOverlay, toggleOverlay}) => {
     return (
         <TouchableOpacity style={styles.button} onPress={() => setToggleOverlay(!toggleOverlay)}>
-            <FontAwesome5 name={icon} size={24} color="black" />
+            <FontAwesome5 name={icon} size={24} color="black"/>
         </TouchableOpacity>
     );
 };

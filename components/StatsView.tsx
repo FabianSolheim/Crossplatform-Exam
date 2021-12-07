@@ -2,11 +2,10 @@ import React from "react";
 import {Text, View, StyleSheet} from "react-native";
 import {numberWithCommas} from "../utils/utils";
 
-//SVGS
-// @ts-ignore
+//SVGS (no idea why I get a TS error here..)
 import World1 from "../world1.svg";
-// @ts-ignore
 import Sick1 from "../sick1.svg";
+import Country from "../country.svg";
 
 type Props = {
     cases: number,
@@ -24,14 +23,18 @@ const StatsView = ({cases, vaccinations, tests, deaths, title}: Props) => {
                     <Text style={styles.label}>{title} covid cases</Text>
                     <Text style={styles.regularText}>{numberWithCommas(cases)}</Text>
                 </View>
+                {vaccinations !== 0 &&
                 <View style={styles.infoContainer}>
                     <Text style={styles.label}>{title} vaccinations</Text>
                     <Text style={styles.regularText}>{numberWithCommas(vaccinations)}</Text>
                 </View>
+                }
+                {tests !== 0 &&
                 <View style={styles.infoContainer}>
                     <Text style={styles.label}>{title} tests</Text>
                     <Text style={styles.regularText}>{numberWithCommas(tests)}</Text>
                 </View>
+                }
                 <View style={styles.infoContainer}>
                     <Text style={styles.label}>{title} deaths</Text>
                     <Text style={styles.regularText}>{numberWithCommas(deaths)}</Text>
@@ -40,6 +43,7 @@ const StatsView = ({cases, vaccinations, tests, deaths, title}: Props) => {
             <View style={styles.rightInnerContainer}>
                 {title === "Total" && <World1 height={130} width={130}/>}
                 {title === "Daily" && <Sick1 height={130} width={130}/>}
+                {title === "Norway" && <Country height={130} width={130}/>}
             </View>
         </View>
     )

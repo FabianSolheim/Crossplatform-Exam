@@ -9,7 +9,6 @@ type Props = {
     navigation: ProfileScreenNavigationProp
 }
 
-//TODO: ADD COUNTRYNAME TO HEADER
 const ListRenderItem = ({item, navigation}: Props) => {
     return (
         <View>
@@ -24,7 +23,6 @@ const ListRenderItem = ({item, navigation}: Props) => {
                 </View>
             </TouchableOpacity>
         </View>
-
     );
 };
 

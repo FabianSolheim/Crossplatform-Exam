@@ -7,8 +7,6 @@ export type CountryInfo = {
     iso3: string
 }
 
-//TODO: Remove uneccsary stats. Make entire API in one Type/Interface?.
-//This gets the daily covid stats
 export type DailyStats = {
     active: number,
     activePerOneMillion: number,
@@ -32,12 +30,17 @@ export type DailyStats = {
     todayRecovered: number,
     updated: number,
     countryInfo: CountryInfo,
-    //TODO: These should prooobably be its own ting
     country: string,
     flag: string
 }
 
-//TODO: Create Type for CountryInfo
+type TotalVaccinations = {
+    daily: number,
+    dailyPerMillion: number,
+    date: string,
+    total: number,
+    totalPerHundred: number,
+}
 
 async function getDailyStats(){
     try {
@@ -47,15 +50,6 @@ async function getDailyStats(){
         //TODO: HANDLE ERRORS PROPERLY
         console.log(e.toString())
     }
-}
-
-
-type TotalVaccinations = {
-    daily: number,
-    dailyPerMillion: number,
-    date: string,
-    total: number,
-    totalPerHundred: number,
 }
 
 async function getTotalVaccinations() {
@@ -68,34 +62,11 @@ async function getTotalVaccinations() {
     }
 }
 
-//TODO: Create type for this request
-async function getDataSeriesAllTime(){
-    try {
-        const request = await axios.get("https://disease.sh/v3/covid-19/historical/all?lastdays=5");
-        return request.data
-    } catch (e) {
-        //TODO: HANDLE ERRORS PROPERLY
-        console.log(e.toString())
-    }
-}
-
-async function getDataSeriesCountry(country: string) {
-    try {
-        const url = `https://disease.sh/v3/covid-19/historical/${country.toLowerCase()}?lastdays=7`
-        const request = await axios.get(url);
-        return request.data;
-    } catch (e) {
-        //TODO: HANDLE ERROR
-    }
-}
-
-//TODO: Create type for this request
 async function getAllCountries() {
     try {
         const request = await axios.get("https://disease.sh/v3/covid-19/countries");
         return await request.data;
     } catch (e) {
-        //TODO: Handle errors properlyyyy
         console.log(e.toString());
     }
 }
@@ -113,8 +84,6 @@ async function getSpecificCountry(country: string) {
 export {
     getDailyStats,
     getTotalVaccinations,
-    getDataSeriesAllTime,
-    getDataSeriesCountry,
     getAllCountries,
     getSpecificCountry
 }

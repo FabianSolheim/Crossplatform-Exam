@@ -20,7 +20,6 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
     const [countryDeaths, setCountryDeaths] = useState(0);
 
 
-
     useEffect(() => {
 
         //TODO: FIX THIS
@@ -39,8 +38,8 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
         });
     }, [])
 
-    if(countryFlag === ""){
-        return <LoadingView />
+    if (countryFlag === "") {
+        return <LoadingView/>
     }
 
     return (
@@ -49,7 +48,6 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
                          countryCases={countryCases} countryCritical={countryCritical} countryDeaths={countryDeaths}/>
         </View>
     );
-
 };
 
 export default SearchResultScreen;

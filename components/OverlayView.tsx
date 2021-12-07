@@ -47,8 +47,8 @@ const OverlayView: React.FC<Props> = ({
                     isChecked={mostCasesChecked}
                     onPress={() => {
                         setSortByMostCases(!sortByMostCases);
-                        setMostCasesChecked(!mostCasesChecked);
-                        //TODO: LEAST CASES CHECKBOX FIX
+                        setMostCasesChecked(true);
+                        setLeastCasesChecked(false);
                     }}
                     style={{marginTop: 10}}
                 />
@@ -66,7 +66,8 @@ const OverlayView: React.FC<Props> = ({
                     isChecked={leastCasesChecked}
                     onPress={() => {
                         setSortByLeastCases(!sortByLeastCases);
-                        setLeastCasesChecked(!leastCasesChecked);
+                        setLeastCasesChecked(true);
+                        setSortByMostCases(false);
                     }}
                     style={{marginTop: 10}}
                 />

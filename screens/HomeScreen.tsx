@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, Dimensions} from "react-native";
-import {getDailyStats, getDataSeriesAllTime, getDataSeriesCountry, getTotalVaccinations} from "../api/diseaseApi";
-import {formatDate} from "../utils/utils";
-import {LineChart, PieChart} from "react-native-chart-kit";
-
+import {SafeAreaView, View, ScrollView} from "react-native";
+import {
+    getDailyStats,
+    getSpecificCountry,
+    getTotalVaccinations
+} from "../api/diseaseApi";
 
 //Components
 import Title from "../components/Title";
 import StatsView from "../components/StatsView";
-import ChartDisplay from "../components/ChartDisplay";
 
 const HomeScreen: React.FC = () => {
-
     //DAILY
     const [casesToday, setCasesToday] = useState(0);
     const [vaccinationsToday, setVaccinationsToday] = useState(0);
@@ -23,14 +22,15 @@ const HomeScreen: React.FC = () => {
     const [casesTotal, setCasesTotal] = useState(0);
     const [deathsTotal, setDeathsTotal] = useState(0);
 
-    //COUNTRY CHART
-    const [countryChartCases, setCountryChartCases] = useState<number[]>([]);
-    const [countryChartDates, setCountryChartDates] = useState<string[]>([]);
+    //SPECIFIC COUNTRY
+    const [countryCases, setCountryCases] = useState<number>(0);
+    const [countryTests, setCountryTests] = useState<number>(0);
+    const [countryDeaths, setCountryDeaths] = useState<number>(0);
+
 
     useEffect(() => {
         getDailyStats().then(data => {
             if (!data) return;
-            console.log(data)
             setCasesToday(data.todayCases)
             setDeathsToday(data.todayDeaths)
 
@@ -46,20 +46,11 @@ const HomeScreen: React.FC = () => {
             setVaccinationsTotal(data[0].total)
         });
 
-        //TODO: ADD LOCATION DATA HERE
-        getDataSeriesCountry("norway").then(data => {
-            //reset state array
-            setCountryChartCases([]);
-            setCountryChartDates([]);
-            console.log(data.timeline)
-            const {cases} = data.timeline;
-
-            for (const [key, value] of Object.entries(cases)) {
-                if (typeof value === "number") {
-                    setCountryChartCases(prevState => [...prevState, value]);
-                    setCountryChartDates(prevState => [...prevState, formatDate(key.toString())])
-                }
-            }
+        getSpecificCountry("norway").then(data => {
+            if(!data) return;
+            setCountryCases(data.cases);
+            setCountryDeaths(data.deaths);
+            setCountryTests(data.cases);
         })
     }, []);
 
@@ -73,19 +64,12 @@ const HomeScreen: React.FC = () => {
                 <StatsView cases={casesToday} tests={0} vaccinations={vaccinationsToday} deaths={deathsToday}
                            title={"Daily"}/>
 
-                    <Title title={"Cases Last 10 Days, Norway"}/>
-                {
-                    /*
-                        <ChartDisplay cases={[10]} dates={["yes"]} />
-                    */
-                }
+                <Title title={"Stats for Norway"}/>
+                <StatsView cases={countryCases} vaccinations={0} tests={countryTests} deaths={countryDeaths} title={"Norway"} />
+                <View style={{marginTop: 20}} />
             </ScrollView>
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {}
-})
 
 export default HomeScreen;
