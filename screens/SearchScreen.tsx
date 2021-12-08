@@ -44,7 +44,7 @@ const SearchScreen: React.FC<Props> = ({navigation}) => {
     //Fetch all countries
     useEffect(() => {
         getAllCountries().then(data => {
-            if(!data) return;
+            if (!data) return;
             setAllCountries([]);
 
             const correctData = data.filter((item: ItemProps) => item.countryInfo._id !== null); //null checking the data, as some countries dont have the id property

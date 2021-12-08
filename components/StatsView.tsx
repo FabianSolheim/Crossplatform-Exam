@@ -2,10 +2,11 @@ import React from "react";
 import {Text, View, StyleSheet} from "react-native";
 import {numberWithCommas} from "../utils/utils";
 
-//SVGS (no idea why I get a TS error here..)
+//SVGS
 import World1 from "../world1.svg";
 import Sick1 from "../sick1.svg";
 import Country from "../country.svg";
+
 
 type Props = {
     cases: number,

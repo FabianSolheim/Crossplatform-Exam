@@ -47,7 +47,7 @@ const HomeScreen: React.FC = () => {
         });
 
         getSpecificCountry("norway").then(data => {
-            if(!data) return;
+            if (!data) return;
             setCountryCases(data.cases);
             setCountryDeaths(data.deaths);
             setCountryTests(data.cases);
@@ -65,8 +65,9 @@ const HomeScreen: React.FC = () => {
                            title={"Daily"}/>
 
                 <Title title={"Stats for Norway"}/>
-                <StatsView cases={countryCases} vaccinations={0} tests={countryTests} deaths={countryDeaths} title={"Norway"} />
-                <View style={{marginTop: 20}} />
+                <StatsView cases={countryCases} vaccinations={0} tests={countryTests} deaths={countryDeaths}
+                           title={"Norway"}/>
+                <View style={{marginTop: 20}}/>
             </ScrollView>
         </SafeAreaView>
     );
