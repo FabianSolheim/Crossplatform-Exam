@@ -21,9 +21,7 @@ const SearchResultScreen: React.FC<SearchResultScreenProps> = ({navigation, rout
 
 
     useEffect(() => {
-
-        //TODO: FIX THIS
-        // @ts-ignore
+        //@ts-ignore
         const {country} = route.params;
 
         getSpecificCountry(country).then(data => {
