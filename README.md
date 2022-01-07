@@ -1,5 +1,7 @@
 # Covid App - React Native Crossplatform Exam
 
+## Grade: A
+
 ### Run guide
 1. `npm install` in /covidapp directory
 2. `expo start`
